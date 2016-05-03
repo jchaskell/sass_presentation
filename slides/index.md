@@ -324,14 +324,13 @@ head(mil_spending[1:3, 1:5])
 
 * End up with data that can easily be graphed like this:
 
-![plot of chunk unnamed-chunk-11](assets/fig/unnamed-chunk-11-1.png)
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
 
 ---
 
 ## Another Cool Graph
 
-![plot of chunk unnamed-chunk-12](assets/fig/unnamed-chunk-12-1.png)
-
+<img src="data/imp_topics-1.png" width="1000px" height="400px" />
 
 
 

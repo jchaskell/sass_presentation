@@ -256,26 +256,7 @@ ggplot(model_data, aes(y = neg_percent, x = exp_china_percent, group = party)) +
 
 ## Another Cool Graph
 
-```{r echo = FALSE, message = FALSE, error=FALSE, fig.width = 10, fig.height = 6, warning=FALSE}
-
-load(file = "data/model12.RData")
-
-all12$date_month <- paste(all12$year, ifelse(all12$month >= 10, all12$month, paste0(0, all12$month)), "01", sep = "-") #puts fake date in to use date scale
-all12$date_month <- as.Date(all12$date_month, format = "%Y-%m-%d")
-
-topics12 <- all12 %>% group_by(date_month) %>% filter(year <= 2013) %>% 
-        summarise(sec1 = sum(security1)/length(security1), energy = sum(energy)/length(energy), agree = sum(agreements)/length(agreements), recog = sum(recognition)/length(recognition), hr = sum(hrights)/length(hrights), sec2 = sum(security2)/length(security2), deficit = sum(deficit)/length(deficit), procedure = sum(procedure)/length(procedure), procedure2 = sum(procedure2)/length(procedure2), outsource = sum(outsource)/length(outsource), diplo = sum(diplomacy)/length(diplomacy), tariffs = sum(tariffs)/length(tariffs))
-
-topics12$econ <- topics12$deficit + topics12$tariffs + topics12$outsource + topics12$agree
-topics12$security <- topics12$sec1 + topics12$sec2
-graph2 <- topics12 %>% select(date_month, econ, hr, security, energy, diplo)
-colnames(graph2) <- c("date_month", "Economics/Trade", "Human Rights", "Security", "Energy/Environment", "Diplomacy")
-graph2 <- melt(graph2, id = "date_month")
-
-ggplot(graph2, aes(x = date_month, y = value, group = variable)) + geom_smooth(aes(colour = variable), span = 0.2) + scale_x_date() + ylab("Proportion of Speech") + xlab("") + theme_bw() + theme(panel.border = element_blank(), panel.background = element_blank(), axis.title = element_text(size = 12))
-
-```
-
+<img src="data/imp_topics-1.png" width="1000px" height="400px" />
 
 
 
