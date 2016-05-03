@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Getting to Tidy Data or</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Getting to Tidy Data or">
+  <meta name="author" content="Jen Haskell">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/github.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Getting to Tidy Data or</h1>
+    <h2>How I Learned to Stop Worrying and Love Data Cleaning</h2>
+    <p>Jen Haskell<br/>Stanford Applied Statistics Society</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Outline</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Principles of &quot;Tidy Data&quot;</li>
+<li>Data cleaning steps for one of my projects</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Data Cleaning is a Fact of Life</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Real world data is messy -- <em>very messy</em></p></li>
+<li><p>50-80% of data science work is data cleaning/data wranging/data munging (<a href="http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html">2014 New York Times Article</a>)</p></li>
+<li><p>Sometimes data can be <em>really</em> messy (<a href="http://rpubs.com/dgrtwo/tidying-enron">An extreme example</a>)</p></li>
+<li><p>Embrace it: automating data cleaning can be a fun programming challenge</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Tidy Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>A concept described by Hadley Wickham, <a href="http://priceonomics.com/hadley-wickham-the-man-who-revolutionized-r/">official R wizard</a></p></li>
+<li><p>Three simple principles:</p></li>
+</ul>
+
+<pre><code>1. Each variable forms a column
+2. Each observation forms a row
+3. Each type of observational unit forms a table
+</code></pre>
+
+<ul>
+<li><p>Getting to tidy data:</p>
+
+<ul>
+<li>Resources in R: <a href="http://vita.had.co.nz/papers/tidy-data.pdf">Paper on tidy data</a>, <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html">More examples</a></li>
+<li>Packages in R: tidyr, dplyr, reshape2, plyr</li>
+<li><a href="https://www.ibm.com/developerworks/community/blogs/jfp/entry/Tidy_Data_In_Python?lang=en">Tidy data in python</a></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Examples</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Untidy data</li>
+</ul>
+
+<pre><code>##           State       X1999       X2000       X2001       X2002
+## 1 UNITED STATES 13117677381 16253029349 19234827272 22127790292
+## 2    Washington  2040480542  1900659005  2928721420  3922748622
+## 3    California  2394723120  3546020626  4676055993  4482780949
+## 4         Texas   899734807  1452319128  1577843301  2051551556
+## 5     Louisiana   663751021  1064073172   682723378   781372522
+</code></pre>
+
+<ul>
+<li>(Kind of) Tidy data</li>
+</ul>
+
+<pre><code>## Source: local data frame [6 x 5]
+## 
+##           State          Payroll                   NA Contract awards
+##           (chr)            (chr)                (chr)           (dbl)
+## 1            NA            Total Active Duty Military              NA
+## 2 United States 195170178.000000      84459939.000000       303355386
+## 3            NA               NA                   NA              NA
+## 4      Alabama    4723956.000000       1254790.000000         9501617
+## 5       Alaska    2659561.000000       2077719.000000         2180004
+## 6      Arizona    3137634.000000       1262572.000000        12064904
+## Variables not shown: Grants (dbl)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>My Project</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>What do U.S. politicians say about China and why?</p></li>
+<li><p>Use congressional speech and see what predicts negative speech about China</p></li>
+<li><p>Three data frames:</p>
+
+<p>-Speech-senator data frame</p>
+
+<p>-Senator-year data frame</p>
+
+<p>-State-year data frame</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>My Project</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>What do U.S. politicians say about China and why?</p></li>
+<li><p>Use congressional speech and see what predicts negative speech about China</p></li>
+<li><p>Three data frames:</p>
+
+<p>-Speech-senator data frame</p>
+
+<p>-<del>Senator-year data frame</del></p>
+
+<p>-State-year data frame</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Cleaning Speech Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Read in speech data and split file using pattern matching</li>
+</ul>
+
+<pre><code class="r">speeches &lt;- read_file(&quot;data/109-boxer-ca.txt&quot;)
+</code></pre>
+
+<pre><code>&lt;DOC&gt;
+&lt;DOCNO&gt;109-boxer-ca-1-20050207&lt;/DOCNO&gt;
+&lt;TEXT&gt;
+   Mrs. BOXER. Madam President, may I ask what is the order at the current time? 
+&lt;/TEXT&gt;
+&lt;/DOC&gt;
+
+&lt;DOC&gt;
+&lt;DOCNO&gt;109-boxer-ca-2-20050207&lt;/DOCNO&gt;
+&lt;TEXT&gt;
+   Mrs. BOXER. Does one have to ask unanimous consent to go past the 10 minutes? 
+&lt;/TEXT&gt;
+&lt;/DOC&gt;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Cleaning Speech Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Extract senator and date using regex</li>
+<li>Put into data frame</li>
+</ul>
+
+<pre><code class="r">speeches &lt;- unlist(str_split(speeches, &quot;\n*&lt;/TEXT&gt;\n*&lt;/DOC&gt;\n\n&lt;DOC&gt;\n&lt;DOCNO&gt;&quot;)) #stringr
+speeches &lt;- unlist(str_split(speeches, &quot;&lt;/DOCNO&gt;\n&lt;TEXT&gt;\n*&quot;))
+speeches &lt;- matrix(speeches, nrow = length(speeches)/2, ncol = 2, byrow = T)
+speeches[1,1] &lt;- str_sub(speeches[1,1], 14, -1)
+info &lt;- unlist(str_split(speeches[,1], &quot;-&quot;))
+info &lt;- matrix(info, nrow = length(info)/5, ncol = 5, byrow = T)
+head(info)
+</code></pre>
+
+<pre><code>##      [,1]  [,2]    [,3] [,4] [,5]      
+## [1,] &quot;109&quot; &quot;boxer&quot; &quot;ca&quot; &quot;1&quot;  &quot;20050207&quot;
+## [2,] &quot;109&quot; &quot;boxer&quot; &quot;ca&quot; &quot;2&quot;  &quot;20050207&quot;
+## [3,] &quot;109&quot; &quot;boxer&quot; &quot;ca&quot; &quot;3&quot;  &quot;20050207&quot;
+## [4,] &quot;109&quot; &quot;boxer&quot; &quot;ca&quot; &quot;1&quot;  &quot;20060309&quot;
+## [5,] &quot;109&quot; &quot;boxer&quot; &quot;ca&quot; &quot;2&quot;  &quot;20060309&quot;
+## [6,] &quot;109&quot; &quot;boxer&quot; &quot;ca&quot; &quot;3&quot;  &quot;20060309&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Cleaning Speech Data: Other Tasks</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Matching</p>
+
+<ul>
+<li>Make sure your id variables match!</li>
+<li>In my case: years, state names, senator names</li>
+<li>Even well-known data sets may have issues:</li>
+</ul></li>
+</ul>
+
+<pre><code class="r">dw &lt;- dw %&gt;% select(congress, state_code, district, state, party, name, first_d) %&gt;%
+        filter(str_detect(name, &quot;KERRY&quot;)) %&gt;% arrange(congress)
+head(dw, 10)
+</code></pre>
+
+<pre><code>## Source: local data frame [10 x 7]
+## 
+##    congress state_code district   state party        name first_d
+##       (dbl)      (dbl)    (dbl)   (chr) (dbl)       (chr)   (dbl)
+## 1        99          3        0 MASSACH   100    KERRY  J  -0.372
+## 2       100          3        0 MASSACH   100    KERRY  J  -0.373
+## 3       101          3        0 MASSACH   100  KERRY JOHN  -0.375
+## 4       102          3        0 MASSACH   100 KERRY  JOHN  -0.376
+## 5       103          3        0 MASSACH   100 KERRY  JOHN  -0.378
+## 6       104          3        0 MASSACH   100 KERRY  JOHN  -0.379
+## 7       105          3        0 MASSACH   100 KERRY  JOHN  -0.381
+## 8       106          3        0 MASSACH   100 KERRY  JOHN  -0.382
+## 9       107          3        0 MASSACH   100 KERRY  JOHN  -0.384
+## 10      108          3        0 MASSACH   100 KERRY  JOHN  -0.385
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Cleaning State Data: Trade Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Use reshape2 or tidyr to change data from &quot;wide&quot; to &quot;long&quot;</li>
+<li>Eliminate rows that aren&#39;t needed with dplyr</li>
+</ul>
+
+<pre><code class="r">head(trade[1:3,1:5])
+</code></pre>
+
+<pre><code>##           State       X1999       X2000       X2001       X2002
+## 1 UNITED STATES 13117677381 16253029349 19234827272 22127790292
+## 2    Washington  2040480542  1900659005  2928721420  3922748622
+## 3    California  2394723120  3546020626  4676055993  4482780949
+</code></pre>
+
+<pre><code class="r">trade &lt;- melt(trade, id.vars = &quot;State&quot;) #reshape2
+trade &lt;- trade %&gt;% select(state = State, year = variable, total_exp_world = value) #dplyr
+head(trade[1:3,1:3])
+</code></pre>
+
+<pre><code>##           state  year total_exp_world
+## 1 UNITED STATES X1999     13117677381
+## 2    Washington X1999      2040480542
+## 3    California X1999      2394723120
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Cleaning State Data: Military Spending Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Fix variable names and eliminate rows that aren&#39;t needed</li>
+<li>Each year has a different number of unnecessary rows, so difficult to automate</li>
+</ul>
+
+<pre><code>## Source: local data frame [5 x 4]
+## 
+##           State          Payroll                   NA Contract awards
+##           (chr)            (chr)                (chr)           (dbl)
+## 1            NA            Total Active Duty Military              NA
+## 2 United States 195170178.000000      84459939.000000       303355386
+## 3            NA               NA                   NA              NA
+## 4      Alabama    4723956.000000       1254790.000000         9501617
+## 5       Alaska    2659561.000000       2077719.000000         2180004
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Cleaning State Data: Military Spending Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Fix variable names and eliminate rows that aren&#39;t needed</li>
+<li>Each year has a different number of unnecessary rows, so difficult to automate</li>
+</ul>
+
+<pre><code class="r">cnames &lt;- c(&quot;state&quot;, &quot;payroll&quot;, &quot;payroll_activeduty&quot;, &quot;contracts&quot;, &quot;grants&quot;)
+colnames(mil_spending) &lt;- cnames
+mil_spending &lt;- mil_spending[c(4:11, 13:54),]
+mil_spending[,2:5] &lt;- sapply(mil_spending[,2:5], as.numeric)
+head(mil_spending[1:3, 1:5])
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 5]
+## 
+##      state payroll payroll_activeduty contracts grants
+##      (chr)   (dbl)              (dbl)     (dbl)  (dbl)
+## 1 Alabama  4723956            1254790   9501617  66056
+## 2  Alaska  2659561            2077719   2180004  48783
+## 3 Arizona  3137634            1262572  12064904 105948
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Cleaning State Data: Military Spending Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Some years were in pdf format -- used tabula to extract data but it looked like this:</li>
+</ul>
+
+<pre><code>##                 X     Contract          X.1                     PERSONNEL
+## 1          STATE     awards 1      Payroll                 (1,000) STATE 
+## 2                 (mil. dol.)  (mil. dol.)              CivilianMilitary 
+## 3       U.S. . .      109,408       99,794  732.0 1,056.1 MO . . . . . . 
+## 4 AL . . . . . .        1,838        2,183      22.0 14.6 MT . . . . . . 
+## 5 AK . . . . . .          565          879       4.4 16.6 NE . . . . . . 
+## 6 AZ . . . . . .        2,911        1,865       8.8 21.8 NV . . . . . . 
+##     Contract.1         X.2 X.3       PERSONNEL.1
+## 1    awards 1     Payroll   NA           (1,000)
+## 2 (mil. dol.)  (mil. dol.)  NA Civilian Military
+## 3       7,093       1,630   NA         15.8 14.6
+## 4          91         298   NA           1.1 3.7
+## 5         322         711   NA           3.7 9.4
+## 6         285         777   NA           2.2 7.8
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>End Result</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Two datasets:</p>
+
+<ul>
+<li>Speeches: 690,000+ rows</li>
+<li>State-years: 1250 rows (50 states over 25 years)</li>
+</ul></li>
+<li><p>To work with the data:</p>
+
+<ul>
+<li>Condense speech data down to senator-year (using dplyr)</li>
+<li>Outer join with state data </li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>End Result</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>End up with data that can easily be graphed like this:</li>
+</ul>
+
+<p><img src="assets/fig/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Another Cool Graph</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Outline'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Data Cleaning is a Fact of Life'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Tidy Data'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Examples'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='My Project'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='My Project'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Cleaning Speech Data'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Cleaning Speech Data'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Cleaning Speech Data: Other Tasks'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Cleaning State Data: Trade Data'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Cleaning State Data: Military Spending Data'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Cleaning State Data: Military Spending Data'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Cleaning State Data: Military Spending Data'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='End Result'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='End Result'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Another Cool Graph'>
+         16
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

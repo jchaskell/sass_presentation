@@ -1,0 +1,11 @@
+base
+dplyr
+car
+readxl
+Matrix
+lme4
+slidify
+reshape2
+readr
+stringr
+ggplot2
